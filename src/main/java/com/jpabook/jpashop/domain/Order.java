@@ -1,6 +1,8 @@
 package com.jpabook.jpashop.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Table(name="orders")
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id @GeneratedValue
@@ -25,7 +28,7 @@ public class Order {
     // 연관관계 주인 : foreign key와 가까운 것으로 지정
     private Member member;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) // cascade : Entity당 각각 persist 호출하지 않기 위해 사용
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) // cascade : Entity당 각각 persist 호출하지 않기 위해 사용 (자동으로 persiste됨)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
