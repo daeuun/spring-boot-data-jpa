@@ -1,9 +1,6 @@
 package com.jpabook.jpashop.service;
 
-import com.jpabook.jpashop.domain.Delivery;
-import com.jpabook.jpashop.domain.Member;
-import com.jpabook.jpashop.domain.Order;
-import com.jpabook.jpashop.domain.OrderItem;
+import com.jpabook.jpashop.domain.*;
 import com.jpabook.jpashop.domain.item.Item;
 import com.jpabook.jpashop.repository.ItemRepository;
 import com.jpabook.jpashop.repository.MemberRepository;
@@ -25,8 +22,9 @@ public class OrderService {
     /**
      * 주문
      */
+    @Transactional
     public Long order(Long memberId, Long itemId, int count) {
-        // entity 조회
+        // entity 조회 (영속상태) : 여기서부터 핵심 비즈니스 로직 시작하기
         Member member = memberRepository.findOne(memberId);
         Item item = itemRepository.findOne(itemId);
 
@@ -59,11 +57,11 @@ public class OrderService {
     }
 
     /**
-     * 검색
+     * 검색 (단순한 기능은 controller에 위임해도 괜찮...)
      */
-/*    public List<Order> findOrders(OrderSearch orderSearch) {
-        return orderRepository.findAll(orderSearch);
-    }*/
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findAllByString(orderSearch);
+    }
 
 
 }

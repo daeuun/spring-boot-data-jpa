@@ -2,7 +2,7 @@ package com.jpabook.jpashop.repository;
 
 import com.jpabook.jpashop.domain.Member;
 import com.jpabook.jpashop.domain.Order;
-import com.jpabook.jpashop.domain.OrderStatus;
+import com.jpabook.jpashop.domain.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
