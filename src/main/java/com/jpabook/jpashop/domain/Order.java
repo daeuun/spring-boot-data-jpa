@@ -22,11 +22,14 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
-    // 양방향 참조
+    // 양방향 참조 => 둘중에 하나 끊어줘야함
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id") // JoinColumn : foreign key
     // 연관관계 주인 : foreign key와 가까운 것으로 지정
     private Member member;
+    // * fetch = LAZY 지연로딩이라서 db에서 데이터를 가져오지 X
+    // private Member member = new ProxyMember; Member 상속받아서 ProxyMember 객체 생성해서 넣어둠 => ByteBuddyInterceptor 라서 member를 가져올수 없는 오류!
+    // Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor];
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) // cascade : Entity당 각각 persist 호출하지 않기 위해 사용 (자동으로 persiste됨)
     private List<OrderItem> orderItems = new ArrayList<>();

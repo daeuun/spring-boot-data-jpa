@@ -135,4 +135,12 @@ public class OrderRepository {
         return query.getResultList();
     }
 
+    public List<Order> findAllWithMemberDelivery() {
+        return em.createQuery( // 진짜 객체 값을 다 채워서 한방쿼리로 가져옴
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class
+        ).getResultList();
+    }
+
 }

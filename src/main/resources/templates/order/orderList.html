@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header"/>
+<head th:replace="fragments/header :: header"></head>
 <body>
 
 <div class="container">
-<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<div th:replace="fragments/bodyHeader :: bodyHeader"></div>
 <div>
 <div>
 <form th:object="${orderSearch}" class="form-inline">
@@ -14,10 +14,7 @@
 <div class="form-group mx-sm-1 mb-2">
 <select th:field="*{orderStatus}" class="form-control">
 <option value="">주문상태</option>
-<option th:each="status : ${T(jpabook.jpashop.domain.orderStatus).values()}"
-th:value="${status}"
-th:text="${status}">option
-</option>
+<option th:each="status : ${T(jpabook.jpashop.domain.OrderStatus).values()}" th:value="${status}" th:text="${status}">option</option>
 </select>
 </div>
 <button type="submit" class="btn btn-primary mb-2">검색</button>
@@ -47,15 +44,13 @@ th:text="${status}">option
 <td th:text="${item.status}"></td>
 <td th:text="${item.orderDate}"></td>
 <td>
-<a th:if="${item.status.name() == 'ORDER'}" href="#"
-th:href="'javascript:cancel('+${item.id}+')'"
-class="btn btn-danger">CANCEL</a>
+<a th:if="${item.status.name() == 'ORDER'}" href="#" th:href="'javascript:cancel('+${item.id}+')'" class="btn btn-danger">CANCEL</a>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<div th:replace="fragments/footer :: footer"/>
+<div th:replace="fragments/footer :: footer"></div>
 </div> <!-- /container -->
 </body>
 <script>
