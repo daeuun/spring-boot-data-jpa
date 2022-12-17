@@ -147,12 +147,22 @@ public class OrderRepository {
     public List<Order> findAllWithItem() {
         return em.createQuery(
                 "select distinct o from Order o" + // db distinct + entity 중복 걸러줌
-                        " join fetch o.member m" +
-                        " join fetch o.delivery d" +
+                        " join fetch o.member m" + // Order 기준 ToOne
+                        " join fetch o.delivery d" + // Order 기준 ToOne
                         " join fetch o.orderItems oi" +
                         " join fetch oi.item i", Order.class)
 //                .setFirstResult(1) // 1:N 페이징 X (알아서 메모리에서 페이징 해버려서 페이징 불가능)
 //                .setFirstResult(100)
+                .getResultList();
+    }
+
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery(
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
                 .getResultList();
     }
 }
